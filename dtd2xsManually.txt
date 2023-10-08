@@ -1,0 +1,31 @@
+import xml.etree.ElementTree as ET
+from lxml import etree
+
+# Parse the DTD
+dtd_tree = ET.parse("PATH\\TO\\dtd_file.dtd")
+
+# Create an empty XML schema document
+schema_doc = etree.Element("xs:schema", attrib={"xmlns:xs": "http://www.w3.org/2001/XMLSchema"})
+
+# Iterate over the elements in the DTD
+for element in dtd_tree.iter("!ELEMENT"):
+    # Create an element in the XML schema
+    schema_element = etree.Element("xs:element", name=element.attrib["name"])
+    
+    # Iterate over the attributes in the DTD element
+    for attribute in element.iter("!ATTLIST"):
+        # Create an attribute in the XML schema
+        schema_attribute = etree.Element("xs:attribute", name=attribute.attrib["name"])
+        
+        # Set the attribute type
+        schema_attribute.set("type", attribute.attrib["type"])
+        
+        # Add the attribute to the element in the XML schema
+        schema_element.append(schema_attribute)
+    
+    # Add the element to the XML schema document
+    schema_doc.append(schema_element)
+
+# Save the XML schema document to a file
+with open("PATH\\TO\\schema.xsd", "w") as f:
+    f.write(etree.tostring(schema_doc, pretty_print=True))

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mhtool</title>
+  <!-- ===== CSS Files ===== -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/skins/color-1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- ====== Style Switcher ====== -->
+  <link rel="stylesheet" href="css/skins/color-1.css" class="alternate-style" title="color-1" disabled>
+  <link rel="stylesheet" href="css/skins/color-2.css" class="alternate-style" title="color-2" disabled>
+  <link rel="stylesheet" href="css/skins/color-3.css" class="alternate-style" title="color-3" disabled>
+  <link rel="stylesheet" href="css/skins/color-4.css" class="alternate-style" title="color-4" disabled>
+  <link rel="stylesheet" href="css/skins/color-5.css" class="alternate-style" title="color-5" disabled>
+  <link rel="stylesheet" href="css/style-switcher.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="dark">
+  <!-- ===== Main Container Start ===== -->
+  <div class="main-container">
+    <!-- ===== Aside Start ===== -->
+    <div class="aside">
+      <div class="logo">
+        <a href="#"><span>Mh</span>tool</a>
+      </div>
+      <div class="nav-toggler">
+        <span></span>
+      </div>
+      <ul class="nav">
+        <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#about"><i class="fa fa-check-square"></i> XML / DTD </a></li>
+        <li><a href="#services"><i class="fa fa-list"></i> XML / XSD </a></li>
+        <li><a href="#portfolio"><i class="fa fa-check"></i> XML ---> JSON  </a></li>
+        <li><a href="#contact"><i class="fa fa-check-circle"></i> DTD ---> XSD </a></li>
+      </ul>
+    </div>
+    <!-- ===== Aside End ===== -->
+    <!-- ===== Main Content Start ===== -->
+    <div class="main-content">
+      <!-- ===== Home Section Start ===== -->
+      <section class="home section" id="home">
+        <div class="container">
+          <div class="row">
+            <div class="home-info padd-15">
+              <h3 class="hello">Hello, thank you for considering our <span class="name">Mh tool</span></h3>
+              <h3 class="my-profession">You can <span class="typing"> Validate XML file with DTD</span></h3>
+              <p><b><span style="font-family: 'Clicker Script', cursive; font-size: 30px;">Mh</span>tool</b> is a software solution that will help you manipulate and validate XML data. It can validate XML documents against DTD and XSD schemas, convert XML files to JSON format, and convert DTD files to the more widely-used XSD format. It is a reliable and effective tool for processing XML data. <br> <br>  Created by : <br><span style=" font-family: 'Clicker Script', cursive; font-size: 30px;">Oubane Moncif & Bannour Hamza</span></p>
+              <a href="#about" class="btn hire-me">Start Now </a>
+            </div>
+            <div class="home-img padd-15">
+              <img src="images/hero1.png" alt="">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Home Section End ===== -->
+      <!-- ===== About Section Start ===== -->
+      <section class="about section" id="about">
+        <div class="container">
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Validate XML file with DTD</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="about-content padd-15">
+              <div class="row">
+                <div class="about-text padd-15">
+                  <h3> Test your XML File to see if it respects the <span>Grammar of your DTD File.</span></h3>
+                  <p><b style="font-size: 20px;">How it works : </b>When an XML file is validated against a DTD file, the XML file is compared to the rules specified in the DTD file. The XML file is read and its elements and attributes are checked to see if they are allowed by the rules in the DTD file. If the XML file follows the rules, it is considered to be valid. If any errors are found, the validation process will identify them and provide information on what needs to be fixed in order to make the XML file valid. This process helps to ensure that the XML file is well-formed and free of errors.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="personal-info padd-15">
+                  
+                  
+                  <form id="dtd-form" class="buttons padd-15">
+                    <div class="info-item padd-15">
+                      
+                      <label for="xml-filee" class="buttons padd-15">XML File:</label>
+                      <input type="file" id="xml-filee" name="xml_filee" class="btn"  required>
+                    </div>
+                    <br>
+                    <div class="info-item padd-15">
+                      
+                      <label for="dtd-file" class="buttons padd-15">DTD File:</label>
+                      <input type="file" id="dtd-file" name="dtd_file" class="btn" required>
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn">Validate XML</button>
+                  </form>
+                
+                  <div id="responsee" class="btnn" style=" margin-top: 80px; margin-left: 45%; font-size: 30px;" ></div>
+                  <script>
+                    $(document).ready(function() {
+                        $('#dtd-form').submit(function(event) {
+                            event.preventDefault();
+                
+                            var formData = new FormData(this);
+                
+                            $.ajax({
+                                url: 'http://localhost:5000/validate_dtd',
+                                type: 'POST',
+                                data: formData,
+                                crossOrigin: true,
+                                success: function(response) {
+                                    $('#responsee').html(response);
+                                },
+                                error: function(response) {
+                                    $('#responsee').html('Error: ' + response.status);
+                                },
+                                cache: false,
+                                contentType: false,
+                                processData: false
+                            });
+                        });
+                    });
+                  </script>
+                
+
+                  
+                </div>
+                <div class="skills padd-15">
+                  <div class="row">
+                    <div class="skill-item padd-15">
+                      <h5>Upload the XML File ( .xml )</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 25%;"></div>
+                        <div class="skill-percent"></div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Upload the DTD File ( .dtd )</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 50%;"></div>
+                        <div class="skill-percent"></div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Click "Validate XML"</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 75%;"></div>
+                        <div class="skill-percent"></div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Here you go ;)</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 100%;"></div>
+                        <div class="skill-percent"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--this place for education div and experience div-->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== About Section End service section===== -->
+      <!-- ===== Services Section Start ===== -->
+      <section class="about section" id="services">
+        <div class="container">
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Validate XML file with XSD</h2>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="about-content padd-15">
+              <div class="row">
+                <div class="about-text padd-15">
+                  <h3> Test your XML File to see if it respects the <span>Grammar of your XSD File.</span></h3>
+                  <p><b style="font-size: 20px;">How it works : </b>When an XML file is validated against a XSD file, the XML file is compared to the rules specified in the XSD file. The XML file is read and its elements and attributes are checked to see if they are allowed by the rules in the XSD file. If the XML file follows the rules, it is considered to be valid. If any errors are found, the validation process will identify them and provide information on what needs to be fixed in order to make the XML file valid. This process helps to ensure that the XML file is well-formed and free of errors.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="personal-info padd-15">
+                  
+                  
+                <form id="xml-form" class="buttons padd-15">
+                <div class="info-item padd-15">
+                      
+                  <label for="xml-file" class="buttons padd-15">XML File:</label>
+                  <input type="file" id="xml-file" name="xml_file" class="btn" required>
+                </div>
+                <br>
+                <div class="info-item padd-15">
+                      
+                  <label for="xsd-file" class="buttons padd-15">XSD File:</label>
+                  <input type="file" id="xsd-file" name="xsd_file" class="btn" required>
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn">Validate XML</button>
+              </form>
+                
+              <div id="response" class="btnn" style=" margin-top: 80px; margin-left: 45%; font-size: 30px;"></div>
+              <script>
+                $(document).ready(function() {
+                    $('#xml-form').submit(function(event) {
+                        event.preventDefault();
+        
+                        var formData = new FormData(this);
+        
+                        $.ajax({
+                            url: 'http://localhost:5000/validate_xml',
+                            type: 'POST',
+                            data: formData,
+                            crossOrigin: true,
+                            success: function(response) {
+                                $('#response').html(response);
+                            },
+                            error: function(response) {
+                                $('#response').html('Error: ' + response.status);
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+                });
+              </script>
+        
+                
+
+                  
+            </div>
+            <div class="skills padd-15">
+              <div class="row">
+                <div class="skill-item padd-15">
+                  <h5>Upload the XML File ( .xml )</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 25%;"></div>
+                    <div class="skill-percent"></div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>Upload the XSD File ( .xsd )</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 50%;"></div>
+                    <div class="skill-percent"></div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>Click "Validate XML"</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 75%;"></div>
+                    <div class="skill-percent"></div>
+                  </div>
+                </div>
+                <div class="skill-item padd-15">
+                  <h5>Here you go ;)</h5>
+                  <div class="progress">
+                    <div class="progress-in" style="width: 100%;"></div>
+                    <div class="skill-percent"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <!-- ===== Services Section End ===== -->
+      <!-- ===== Portfolio Section Start ===== -->
+      <section class="portfolio section about" id="portfolio">
+        <div class="container ">
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Convert XML to JSON</h2>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="portfolio-heading padd-15">
+              <h2>My Last Projects :</h2>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="about-content padd-15">
+              <div class="row">
+                <div class="about-text padd-15">
+            
+                  <h3> Convert your XML File with <span>Simple Click.</span></h3>
+                  <p><b style="font-size: 20px;">How it works : </b>XML (Extensible Markup Language) and JSON (JavaScript Object Notation) are both commonly used formats for storing and transmitting data. Converting XML to JSON involves taking the XML data and converting it into a JavaScript object, which can then be serialized into a JSON string. This process typically involves iterating through the elements and attributes of the XML data, and creating corresponding keys and values in the JavaScript object. Once all of the XML data has been processed, the resulting JavaScript object can be converted into a JSON string using a built-in function or library. This JSON string can then be used for further processing or transmission.</p>
+                </div>
+              </div>
+              
+
+              <form id="convert-form"  class="buttons padd-15">
+                <input type="file" name="file" id="file-input" class="btn padd-15"/>
+                <input type="submit" value="Convert" class="btn" id="convert-xml"/>
+              </form>
+              <pre id="response-display"></pre>
+              <a id="download-link" download="converted.json" class="btn" style="margin-top: 30px;">Download JSON</a>
+              <script>
+                $('#convert-form').on('submit', function(event) {
+                  event.preventDefault();
+                  var file = $('#file-input')[0].files[0];
+                  var formData = new FormData();
+                  formData.append('file', file);
+                  $.ajax({
+                    url: 'http://127.0.0.1:5000/convert',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                      // update the response display
+                      $('#response-display').text(JSON.stringify(response, null, 2));
+          
+                      // create a new Blob object with the JSON response
+                      // and set it as the href for the download link
+                      var blob = new Blob([JSON.stringify(response)], {type: 'application/json'});
+                      $('#download-link').attr('href', window.URL.createObjectURL(blob));
+                    }
+                  });
+                });
+              </script>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ===== Portfolio Section End ===== -->
+      <!-- ===== Contact Section Start ===== -->
+      <section class="contact section about" id="contact">
+        
+        <div class="container ">
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>Convert DTD to XSD</h2>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="about-content padd-15">
+              <div class="row">
+                <div class="about-text padd-15">
+            
+                  <h3> Convert your DTD File with <span>Simple Click.</span></h3>
+                  <p><b style="font-size: 20px;">How it works : </b>To convert a DTD file to an XSD file, you would first need to understand the structure and rules defined in the DTD file. Then, you would need to create an XSD file that uses the XML Schema language to define the same structure and rules. This can be a time-consuming process, depending on the complexity of the DTD file and the familiarity of the person doing the conversion. This is why our tool comes in, to make it easier for you :</p>
+                </div>
+              </div>
+              <form id="xsd-form"  class="buttons padd-15">
+                <input type="file" name="dtdd_file" id="file-input" class="btn padd-15"/>
+                <input type="submit" value="Convert" class="btn" id="convert-xml"/>
+              </form>
+              <div id="responseee"></div>
+              <pre class="response-displayy"><code id="file_content" ></code></pre>
+              <!-- <pre id="response-display"download-link></pre> -->
+              <!-- <a id="download-button" download="converted.xsd" class="btn" style="margin-top: 30px;">Download XSD</a> -->
+              <!-- <button id="download-button" class="btn" style="margin-top: 30px;">Download XSD</button> -->
+              <script>
+                $(document).ready(function() {
+                    $('#xsd-form').submit(function(event) {
+                        event.preventDefault();
+            
+                        var formData = new FormData(this);
+            
+                        $.ajax({
+                            url: 'http://localhost:5000/upload',
+                            type: 'POST',
+                            data: formData,
+                            crossOrigin: true,
+                            success: function(data) {
+                                $('#file_content').text(data);
+                            },
+                            cache: false,
+                            contentType: false,
+                            processData: false
+                        });
+                    });
+                });
+              </script>
+              <!-- <script>
+                // Handle click event on the download button
+                $("#download-button").click(function() {
+                  // Make an AJAX request to the localhost server
+                  $.ajax({
+                    url: "http://localhost:8000/download", // URL to the file you want to download
+                    type: "GET", // Use the GET method to download the file
+                    success: function(data) {
+                      // When the request is successful, create a hidden link element
+                      // and use it to trigger the file download
+                      var link = document.createElement("a");
+                      link.href = "http://localhost:8000/download/file.zip";
+                      link.download = "file.zip";
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }
+                  });
+                });
+              </script> -->
+            </div>
+
+          </div>
+        </div>
+
+
+      </section>
+      <!-- ===== Contact Section End ===== -->
+    </div>
+    <!-- ===== Main Content End ===== -->
+  </div>
+  <!-- ===== Main Container End ===== -->
+  <!-- ===== Style Switcher Start ===== -->
+  <div class="style-switcher">
+    <div class="style-switcher-toggler s-icon">
+      <i class="fas fa-cog fa-spin"></i>
+    </div>
+    <div class="day-night s-icon">
+      <i class="fas "></i>
+    </div>
+    <h4>Theme Colors</h4>
+    <div class="colors">
+      <span class="color-1" onclick="setActiveStyle('color-1')"></span>
+      <span class="color-2" onclick="setActiveStyle('color-2')"></span>
+      <span class="color-3" onclick="setActiveStyle('color-3')"></span>
+      <span class="color-4" onclick="setActiveStyle('color-4')"></span>
+      <span class="color-5" onclick="setActiveStyle('color-5')"></span>
+    </div>
+  </div>
+  <!-- ===== Style Switcher End ===== -->
+  <!-- ===== JS Files ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" referrerpolicy="no-referrer"></script>
+  <script src="js/script.js"></script>
+  <script src="js/style-switcher.js"></script>
+</body>
+</html>
